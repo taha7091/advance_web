@@ -18,7 +18,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
+Route::get('/', [BannerController::class, 'index'])->name('home');
 
 // Shared dashboard redirect (optional)
 Route::get('/dashboard', function () {
@@ -71,10 +71,11 @@ Route::put('admin/users/{id}', [AdminController::class, 'update'])->name('admin.
 Route::delete('admin/users/{id}', [AdminController::class, 'destroy'])->name('admin.users.destroy'); // Added "admin/" prefix
 
     // Banner management routes
-    Route::get('admin/banners/index', [BannerController::class, 'index'])->name('admin.banners.index');
-    Route::get('admin/banners/create', [BannerController::class, 'create'])->name('admin.banners.create');
-    Route::post('/banners', [BannerController::class, 'store'])->name('admin.banners.store');
-
+    Route::get('banners/index', [BannerController::class, 'index'])->name('admin.banners.index'); // Show all banners
+    Route::get('banners/create', [BannerController::class, 'create'])->name('admin.banners.create'); // Create new banner
+    Route::post('banners', [BannerController::class, 'store'])->name('admin.banners.store'); // Store new banner
+    Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name('admin.banners.edit');
+   
 });
 
 
@@ -84,6 +85,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/dashboard', [ClientController::class, 'showDashboard'])->name('client.dashboard');
     // Add more client routes here...
 });
+
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth');
 
 
 require __DIR__.'/auth.php';

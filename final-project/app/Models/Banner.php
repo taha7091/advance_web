@@ -13,5 +13,6 @@ class Banner extends Model
     protected $table = 'banners';
 
     // Define any fillable fields if needed
-    protected $fillable = ['image_url']; // Add 'image_url' to the fillable fields
+    protected $fillable = ['image_url', 'title', 'description'];
+
 }
